@@ -1,0 +1,31 @@
+name: fondend
+description: "A new Flutter project."
+publish_to: 'none'
+version: 0.1.0
+
+environment:
+  sdk: ^3.5.3
+
+dependencies:
+  google_fonts: ^5.0.0
+  flutter:
+    sdk: flutter
+
+dev_dependencies:
+  flutter_test:
+    sdk: flutter
+  flutter_lints: ^4.0.0
+
+flutter:
+  uses-material-design: true
+
+  assets:
+  - assets/gambar/food_diet.jpg
+  - assets/gambar/google.png
+  - assets/gambar/slideshow1.png
+  - assets/gambar/slideshow2.png
+  - assets/gambar/slideshow3.png
+  - assets/gambar/tuna_salad.jpg
+  - assets/gambar/salmon_panggang.jpg
+  - assets/gambar/salad_sayur.jpg
+  - assets/gambar/chicken_steak.jpg
