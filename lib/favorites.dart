@@ -1,21 +1,25 @@
 import 'package:flutter/material.dart';
+import 'profile.dart';
+import 'upload.dart';
+import 'search.dart';
+import 'beranda.dart';
 
 void main() {
-  runApp(FavoriteRecipesPage());
+  runApp(MyApp());
 }
 
-// class MyApp extends StatelessWidget {
-//   @override
-//   Widget build(BuildContext context) {
-//     return MaterialApp(
-//       title: 'Resep Favoritmu',
-//       theme: ThemeData(
-//         primarySwatch: Colors.orange,
-//       ),
-//       home: FavoriteRecipesPage(),
-//     );
-//   }
-// }
+class MyApp extends StatelessWidget {
+  @override
+  Widget build(BuildContext context) {
+    return MaterialApp(
+      title: 'Resep Favoritmu',
+      theme: ThemeData(
+        primarySwatch: Colors.orange,
+      ),
+      home: FavoriteRecipesPage(),
+    );
+  }
+}
 
 class FavoriteRecipesPage extends StatefulWidget {
   @override
@@ -25,10 +29,10 @@ class FavoriteRecipesPage extends StatefulWidget {
 class _FavoriteRecipesPageState extends State<FavoriteRecipesPage> {
   // Daftar dummy resep favorit
   List<Map<String, String>> favoriteRecipes = [
-    {'title': 'salad sayur', 'image': 'assets/gambar/salad_sayur.jpg'},
-    {'title': 'salmon panggang', 'image': 'assets/gambar/salmon_panggang.jpg'},
-    {'title': 'tuna salad', 'image': 'assets/gambar/tuna_salad.jpg'},
-    {'title': 'chicken steak', 'image': 'assets/gambar/chicken_steak.jpg'},
+    {'title': 'Salad Sayur', 'image': 'assets/gambar/salad_sayur.jpg'},
+    {'title': 'Salmon Panggang', 'image': 'assets/gambar/salmon_panggang.jpg'},
+    {'title': 'Tuna Salad', 'image': 'assets/gambar/tuna_salad.jpg'},
+    {'title': 'Chicken Steak', 'image': 'assets/gambar/chicken_steak.jpg'},
   ];
 
   // Fungsi untuk menghapus item dari daftar
@@ -38,7 +42,41 @@ class _FavoriteRecipesPageState extends State<FavoriteRecipesPage> {
     });
   }
 
-  int _currentIndex = 0;
+  int _currentIndex = 3;
+
+  void _navigateToPage(BuildContext context, int index) {
+    switch (index) {
+      case 0:
+        Navigator.push(
+          context,
+          MaterialPageRoute(builder: (context) => HomePage()),
+        );
+        break;
+      case 1:
+        Navigator.push(
+          context,
+          MaterialPageRoute(builder: (context) => SlimChefScreen()),
+        );
+        break;
+      case 2:
+        Navigator.push(
+          context,
+          MaterialPageRoute(builder: (context) => HalamanTambahResep()),
+        );
+        break;
+      case 3:
+        // Tetap di halaman ini
+        break;
+      case 4:
+        Navigator.push(
+          context,
+          MaterialPageRoute(builder: (context) => Profile()),
+        );
+        break;
+      default:
+        break;
+    }
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -93,15 +131,16 @@ class _FavoriteRecipesPageState extends State<FavoriteRecipesPage> {
           setState(() {
             _currentIndex = index;
           });
+          _navigateToPage(context, index);
         },
         items: [
-          BottomNavigationBarItem(icon: Icon(Icons.home), label: ''),
-          BottomNavigationBarItem(icon: Icon(Icons.search), label: ''),
-          BottomNavigationBarItem(icon: Icon(Icons.add), label: ''),
-          BottomNavigationBarItem(icon: Icon(Icons.favorite), label: ''),
-          BottomNavigationBarItem(icon: Icon(Icons.person), label: ''),
+          BottomNavigationBarItem(icon: Icon(Icons.home), label: 'Home'),
+          BottomNavigationBarItem(icon: Icon(Icons.search), label: 'Cari'),
+          BottomNavigationBarItem(icon: Icon(Icons.add), label: 'Tambah'),
+          BottomNavigationBarItem(icon: Icon(Icons.favorite), label: 'Favorit'),
+          BottomNavigationBarItem(icon: Icon(Icons.person), label: 'Profil'),
         ],
-        selectedItemColor: Colors.orange,
+        selectedItemColor: Color(0xFF1A7F5D),
         unselectedItemColor: Colors.grey,
       ),
     );
