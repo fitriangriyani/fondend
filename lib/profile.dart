@@ -1,26 +1,31 @@
 import 'package:flutter/material.dart';
-
+import 'beranda.dart';
+import 'favorites.dart';
+import 'search.dart';
+import 'upload.dart';
 
 void main() {
-  runApp(Profile());
+  runApp(MyApp());
 }
 
-// class MyApp extends StatelessWidget {
-//   @override
-//   Widget build(BuildContext context) {
-//     return MaterialApp(
-//       debugShowCheckedModeBanner: false,
-//       home: HomePage(),
-//     );
-//   }
-// }
+class MyApp extends StatelessWidget {
+  @override
+  Widget build(BuildContext context) {
+    return MaterialApp(
+      debugShowCheckedModeBanner: false,
+      home: Profile(),
+    );
+  }
+}
 
 class Profile extends StatefulWidget {
   @override
   _ProfileState createState() => _ProfileState();
 }
 
+
 class _ProfileState extends State<Profile> {
+  int _currentIndex = 4; // Indeks awal (Profile)
   List<Map<String, String>> recipes = [
     {
       'title': 'Chicken Steak',
@@ -38,24 +43,56 @@ class _ProfileState extends State<Profile> {
       'image': 'assets/gambar/salmon_panggang.jpg',
     },
   ];
+  
+  
 
-  // Tambahkan controller untuk nama pengguna
-  TextEditingController _nameController = TextEditingController(text: 'Nama User');
-
-  int _selectedIndex = 4;
-
-  void _onItemTapped(int index) {
+  void _navigateToPage(BuildContext context, int index) {
     setState(() {
-      _selectedIndex = index;
+      _currentIndex = index;
     });
+
+    switch (index) {
+      case 0:
+        Navigator.push(
+          context,
+          MaterialPageRoute(builder: (context) => HomePageContent()),
+        );
+        break;
+      case 1:
+        Navigator.push(
+          context,
+          MaterialPageRoute(builder: (context) => SlimChefScreen()),
+        );
+        break;
+      case 2:
+        Navigator.push(
+          context,
+          MaterialPageRoute(builder: (context) => HalamanTambahResep()),
+        );
+        break;
+      case 3:
+        Navigator.push(
+          context,
+          MaterialPageRoute(builder: (context) => FavoriteRecipesPage()),
+        );
+        break;
+      case 4:
+        Navigator.push(
+          context,
+          MaterialPageRoute(builder: (context) => Profile()),
+        );
+        break;
+      default:
+        break;
+    }
   }
+  
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       body: Column(
         children: [
-          // Profile Section (Kiri Atas)
           Padding(
             padding: const EdgeInsets.fromLTRB(16.0, 40.0, 16.0, 16.0),
             child: Row(
@@ -63,11 +100,11 @@ class _ProfileState extends State<Profile> {
               children: [
                 CircleAvatar(
                   radius: 40,
-                  backgroundColor: Colors.grey[200], // Warna latar belakang lingkaran
+                  backgroundColor: Colors.grey[200],
                   child: Icon(
                     Icons.person,
                     size: 40,
-                    color: Colors.grey[800], // Warna ikon
+                    color: Colors.grey[800],
                   ),
                 ),
                 SizedBox(width: 16),
@@ -75,9 +112,7 @@ class _ProfileState extends State<Profile> {
                   child: Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
-                      // Nama pengguna dengan TextField
                       TextField(
-                        controller: _nameController,
                         decoration: InputDecoration(
                           border: UnderlineInputBorder(),
                           hintText: 'Masukkan Nama',
@@ -87,7 +122,7 @@ class _ProfileState extends State<Profile> {
                           fontWeight: FontWeight.bold,
                         ),
                         onChanged: (value) {
-                          setState(() {}); // Memperbarui UI saat teks berubah
+                          setState(() {});
                         },
                       ),
                       SizedBox(height: 5),
@@ -105,8 +140,6 @@ class _ProfileState extends State<Profile> {
             ),
           ),
           SizedBox(height: 20),
-
-          // Recipe List
           Expanded(
             child: Padding(
               padding: const EdgeInsets.all(16.0),
@@ -118,7 +151,7 @@ class _ProfileState extends State<Profile> {
                     child: Container(
                       height: 100,
                       decoration: BoxDecoration(
-                        color: i % 2 == 0 ? Colors.green : Colors.orange,
+                        color: const Color(0xFF105a3b),
                         borderRadius: BorderRadius.circular(10),
                         boxShadow: [
                           BoxShadow(
@@ -170,20 +203,21 @@ class _ProfileState extends State<Profile> {
                             ],
                           ),
                           PopupMenuButton<String>(
-                            onSelected: (value) {
-                              if (value == 'hapus') {
-                                setState(() {
-                                  recipes.removeAt(i);
-                                });
-                              }
-                            },
-                            itemBuilder: (context) => [
-                              PopupMenuItem(
-                                value: 'hapus',
-                                child: Text('Hapus' ),
-                              ),
-                            ],
+                          icon: Icon(Icons.menu, color: Colors.white), // Ganti ikon titik tiga menjadi garis
+                          onSelected: (value) {
+                          if (value == 'hapus') {
+                         setState(() {
+                         recipes.removeAt(i);
+                         });
+                       }
+                     },
+                     itemBuilder: (context) => [
+                       PopupMenuItem(
+                         value: 'hapus',
+                         child: Text('Hapus'),
                           ),
+                     ],
+                    ),
                         ],
                       ),
                     ),
@@ -195,18 +229,18 @@ class _ProfileState extends State<Profile> {
         ],
       ),
       bottomNavigationBar: BottomNavigationBar(
-        items: [
+        items: const <BottomNavigationBarItem>[
           BottomNavigationBarItem(icon: Icon(Icons.home), label: 'Home'),
           BottomNavigationBarItem(icon: Icon(Icons.search), label: 'Search'),
           BottomNavigationBarItem(icon: Icon(Icons.add), label: 'Add'),
           BottomNavigationBarItem(icon: Icon(Icons.favorite), label: 'Favorites'),
           BottomNavigationBarItem(icon: Icon(Icons.person), label: 'Profile'),
         ],
-        currentIndex: _selectedIndex,
-        selectedItemColor: Colors.orange,
+        currentIndex: _currentIndex,
+        selectedItemColor: Color(0xFF1A7F5D),
         unselectedItemColor: Colors.grey,
-        onTap: _onItemTapped,
         type: BottomNavigationBarType.fixed,
+        onTap: (index) => _navigateToPage(context, index),
       ),
     );
   }
