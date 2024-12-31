@@ -1,18 +1,22 @@
 import 'package:flutter/material.dart';
+import 'profile.dart';
+import 'favorites.dart';
+import 'search.dart';
+import 'beranda.dart';
 
-// void main() {
-//   runApp(HalamanTambahResep());
-// }
+void main() {
+  runApp(SlimChefApp());
+}
 
-// class AplikasiSaya extends StatelessWidget {
-//   @override
-//   Widget build(BuildContext context) {
-//     return MaterialApp(
-//       debugShowCheckedModeBanner: false,
-//       home: HalamanTambahResep(),
-//     );
-//   }
-// }
+class SlimChefApp extends StatelessWidget {
+  @override
+  Widget build(BuildContext context) {
+    return MaterialApp(
+      debugShowCheckedModeBanner: false,
+      home: HalamanTambahResep(),
+    );
+  }
+}
 
 class HalamanTambahResep extends StatefulWidget {
   @override
@@ -20,6 +24,9 @@ class HalamanTambahResep extends StatefulWidget {
 }
 
 class _HalamanTambahResepState extends State<HalamanTambahResep> {
+  // Variabel untuk melacak indeks tab aktif
+  int _currentIndex = 2;
+
   // Daftar untuk menyimpan bahan dan langkah
   List<String> daftarBahan = [];
   List<String> daftarLangkah = [];
@@ -58,21 +65,77 @@ class _HalamanTambahResepState extends State<HalamanTambahResep> {
     });
   }
 
+  // Fungsi navigasi
+  void _navigateToPage(BuildContext context, int index) {
+    setState(() {
+      _currentIndex = index;
+    });
+
+    switch (index) {
+      case 0:
+        Navigator.push(
+          context,
+          MaterialPageRoute(builder: (context) => HomePageContent()),
+        );
+        break;
+      case 1:
+        Navigator.push(
+          context,
+          MaterialPageRoute(builder: (context) => SlimChefScreen()),
+        );
+        break;
+      case 2:
+        Navigator.push(
+          context,
+          MaterialPageRoute(builder: (context) => HalamanTambahResep()),
+        );
+        break;
+      case 3:
+        Navigator.push(
+          context,
+          MaterialPageRoute(builder: (context) => FavoriteRecipesPage()),
+        );
+        break;
+      case 4:
+        Navigator.push(
+          context,
+          MaterialPageRoute(builder: (context) => Profile()),
+        );
+        break;
+      default:
+        break;
+    }
+  }
+  
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      bottomNavigationBar: BottomNavigationBar(
+        items: [
+          BottomNavigationBarItem(icon: Icon(Icons.home), label: 'Home'),
+          BottomNavigationBarItem(icon: Icon(Icons.search), label: 'Search'),
+          BottomNavigationBarItem(icon: Icon(Icons.add), label: 'Add'),
+          BottomNavigationBarItem(icon: Icon(Icons.favorite), label: 'Favorite'),
+          BottomNavigationBarItem(icon: Icon(Icons.person), label: 'Profile'),
+        ],
+        currentIndex: _currentIndex,
+        selectedItemColor: Color(0xFF1A7F5D),
+        unselectedItemColor: Colors.grey,
+        onTap: (index) => _navigateToPage(context, index),
+      ),
       appBar: AppBar(
         backgroundColor: Colors.white,
         elevation: 0,
         title: Text(
-          'SlimChef', // Judul AppBar
+          'SlimChef',
           style: TextStyle(
-            color: Colors.black, 
+            color: Colors.black,
             fontWeight: FontWeight.bold,
             fontSize: 20,
           ),
         ),
-        centerTitle: false, // Judul rata kiri
+        centerTitle: false,
       ),
       body: SingleChildScrollView(
         padding: const EdgeInsets.all(16.0),
@@ -179,7 +242,7 @@ class _HalamanTambahResepState extends State<HalamanTambahResep> {
             Center(
               child: ElevatedButton(
                 style: ElevatedButton.styleFrom(
-                  backgroundColor: Colors.orange,
+                  backgroundColor: Color(0xFF1A7F5D),
                   padding: EdgeInsets.symmetric(horizontal: 32, vertical: 14),
                   minimumSize: Size(150, 50),
                 ),
@@ -192,18 +255,6 @@ class _HalamanTambahResepState extends State<HalamanTambahResep> {
             SizedBox(height: 16),
           ],
         ),
-      ),
-      bottomNavigationBar: BottomNavigationBar(
-        items: [
-          BottomNavigationBarItem(icon: Icon(Icons.home), label: ''),
-          BottomNavigationBarItem(icon: Icon(Icons.search), label: ''),
-          BottomNavigationBarItem(icon: Icon(Icons.add), label: ''),
-          BottomNavigationBarItem(icon: Icon(Icons.favorite), label: ''),
-          BottomNavigationBarItem(icon: Icon(Icons.person), label: ''),
-        ],
-        currentIndex: 2, // Ikon tengah aktif
-        selectedItemColor: Colors.orange,
-        unselectedItemColor: Colors.grey,
       ),
     );
   }
