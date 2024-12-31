@@ -53,13 +53,13 @@ class _RegistrationPageState extends State<RegistrationPage> {
         Container(
           width: double.infinity,
           height: 350,
-          color: const Color(0xFF7ED957),
+          color: const Color(0xFF105a3b),
           child: Padding(
             padding: const EdgeInsets.only(top: 40),
             child: Image.asset(
-              'assets/gambar/Food_Diet.jpg',
-              width: 200,
-              height: 100,
+              'assets/gambar/logo.jpg',
+              width: 10,
+              height: 10,
             ),
           ),
         ),
@@ -70,7 +70,7 @@ class _RegistrationPageState extends State<RegistrationPage> {
           child: Align(
             alignment: Alignment.topCenter,
             child: Text(
-              'Registrasi',
+              'Sign in',
               style: TextStyle(
                 fontSize: 32,
                 fontWeight: FontWeight.bold,
@@ -99,7 +99,7 @@ class _RegistrationPageState extends State<RegistrationPage> {
         child: Column(
           children: [
             _buildInputField('Email or Phone Number', _emailController),
-            _buildInputField('Full Name', _nameController),
+            _buildInputField('Full name', _nameController),
             _buildInputField('Username', _usernameController),
             _buildInputField('Password', _passwordController, isPassword: true),
             SizedBox(height: 20),
@@ -179,7 +179,7 @@ class _RegistrationPageState extends State<RegistrationPage> {
         ),
       ),
       style: ElevatedButton.styleFrom(
-        backgroundColor: Color(0xFF393a58),
+        backgroundColor: Color(0xFF0A2518),
         minimumSize: Size(double.infinity, 50),
         shape: RoundedRectangleBorder(
           borderRadius: BorderRadius.circular(10),
@@ -209,7 +209,7 @@ class _RegistrationPageState extends State<RegistrationPage> {
           child: const Text(
             'Log In',
             style: TextStyle(
-              color: Colors.blue,
+              color: Color(0xFF1A7F5D),
               fontWeight: FontWeight.bold,
               fontSize: 14,
             ),
