@@ -69,7 +69,7 @@ class _ResepPageState extends State<ResepPage> {
                   },
                   child: Icon(
                     _isFavorite ? Icons.favorite : Icons.favorite_border,
-                    color: Colors.orange,
+                    color: Color(0xFF1A7F5D),
                   ),
                 ),
                 SizedBox(width: 16),
@@ -82,7 +82,7 @@ class _ResepPageState extends State<ResepPage> {
                   },
                   child: Icon(
                     _isReported ? Icons.flag_outlined : Icons.flag,
-                    color: Colors.blue,
+                    color: const Color.fromARGB(255, 57, 55, 55),
                   ),
                 ),
                 Spacer(), // Memberikan ruang antara ikon report dan ikon lainnya
@@ -101,42 +101,6 @@ class _ResepPageState extends State<ResepPage> {
             Spacer(),
           ],
         ),
-      ),
-      bottomNavigationBar: BottomNavigationBar(
-        currentIndex: _currentIndex,
-        onTap: (index) {
-          setState(() {
-            _currentIndex = index;
-          });
-          // Logika navigasi berdasarkan index
-          switch (index) {
-            case 0:
-              print("Navigasi ke Home");
-              break;
-            case 1:
-              print("Navigasi ke Search");
-              break;
-            case 2:
-              print("Navigasi ke Add");
-              break;
-            case 3:
-              print("Navigasi ke Favorites");
-              break;
-            case 4:
-              print("Navigasi ke Profile");
-              break;
-          }
-        },
-        items: [
-          BottomNavigationBarItem(icon: Icon(Icons.home), label: ''),
-          BottomNavigationBarItem(icon: Icon(Icons.search), label: ''),
-          BottomNavigationBarItem(icon: Icon(Icons.add), label: ''),
-          BottomNavigationBarItem(icon: Icon(Icons.favorite), label: ''),
-          BottomNavigationBarItem(icon: Icon(Icons.person), label: ''),
-        ],
-        selectedItemColor: Colors.orange,
-        unselectedItemColor: Colors.grey,
-        type: BottomNavigationBarType.fixed,
       ),
     );
   }
