@@ -38,13 +38,13 @@ class _LoginPageState extends State<LoginPage> {
                 Container(
                   width: double.infinity,
                   height: 350,
-                  color: const Color(0xFF7ED957),
+                  color: const Color(0xFF105a3b),
                   child: Padding(
                     padding: const EdgeInsets.only(top: 40),
                     child: Image.asset(
-                      'assets/gambar/Food_Diet.jpg', 
-                      width: 200,
-                      height: 100,
+                      'assets/gambar/logo.jpg', 
+                      width: 10,
+                      height: 10,
                     ),
                   ),
                 ),
@@ -121,7 +121,7 @@ class _LoginPageState extends State<LoginPage> {
                   ElevatedButton(
                     onPressed: () {},
                     style: ElevatedButton.styleFrom(
-                      backgroundColor: Color(0xFF393a58),
+                      backgroundColor: Color(0xFF0A2518),
                       minimumSize: Size(double.infinity, 50),
                       shape: RoundedRectangleBorder(
                         borderRadius: BorderRadius.circular(10),
@@ -180,7 +180,7 @@ class _LoginPageState extends State<LoginPage> {
                             'Forgot Password?',
                             style: GoogleFonts.poppins(
                               fontSize: 14,
-                              color: Colors.blue,
+                              color: const Color(0xFF1A7F5D),
                               fontWeight: FontWeight.bold,
                             ),
                           ),
@@ -198,7 +198,7 @@ class _LoginPageState extends State<LoginPage> {
                             'Sign Up',
                             style: GoogleFonts.poppins(
                               fontSize: 14,
-                              color: Colors.blue,
+                              color: const Color(0xFF1A7F5D),
                               fontWeight: FontWeight.bold,
                             ),
                           ),
