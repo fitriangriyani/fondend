@@ -63,7 +63,7 @@ class ForgotPasswordScreen extends StatelessWidget {
         height: 48,
         child: ElevatedButton(
           style: ElevatedButton.styleFrom(
-            backgroundColor: const Color(0xFF393a58),
+            backgroundColor: const Color(0xFF0A2518),
             shape: RoundedRectangleBorder(
               borderRadius: BorderRadius.circular(12),
             ),
@@ -92,7 +92,7 @@ class ForgotPasswordScreen extends StatelessWidget {
             Container(
               width: double.infinity,
               height: 280,
-              color: const Color(0xFF7ED957),
+              color: const Color(0xFF105a3b),
               child: Column(
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
@@ -114,7 +114,7 @@ class ForgotPasswordScreen extends StatelessWidget {
                   const Padding(
                     padding: EdgeInsets.symmetric(horizontal: 40.0),
                     child: Text(
-                      'Masukkan email atau nama pengguna Anda, dan kami akan mengirimkan Anda tautan untuk mengubah kata sandi baru.',
+                      'Enter your email or username, and we will send you a link to change your new password.',
                       textAlign: TextAlign.center,
                       style: TextStyle(
                         color: Colors.white,
@@ -156,7 +156,7 @@ class ForgotPasswordScreen extends StatelessWidget {
                     'Sign Up',
                     style: TextStyle(
                       fontSize: 14,
-                      color: Colors.blue,
+                      color: Color(0xFF1A7F5D),
                       fontWeight: FontWeight.bold,
                     ),
                   ),
