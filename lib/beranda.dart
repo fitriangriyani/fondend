@@ -3,6 +3,7 @@ import 'profile.dart';
 import 'favorites.dart';
 import 'search.dart';
 import 'upload.dart';
+import 'dart:async';
 
 void main() {
   runApp(MyApp());
@@ -76,7 +77,7 @@ class HomePage extends StatelessWidget {
           BottomNavigationBarItem(icon: Icon(Icons.favorite), label: 'Favorites'),
           BottomNavigationBarItem(icon: Icon(Icons.person), label: 'Profile'),
         ],
-        selectedItemColor: Colors.orange,
+        selectedItemColor: Color(0xFF1A7F5D),
         unselectedItemColor: Colors.grey,
         type: BottomNavigationBarType.fixed,
         onTap: (index) => _navigateToPage(context, index),
@@ -85,7 +86,13 @@ class HomePage extends StatelessWidget {
   }
 }
 
-class HomePageContent extends StatelessWidget {
+class HomePageContent extends StatefulWidget {
+  @override
+  _HomePageContentState createState() => _HomePageContentState();
+}
+
+class _HomePageContentState extends State<HomePageContent> {
+  final PageController _pageController = PageController(viewportFraction: 0.85);
   final List<Map<String, String>> slideshow = [
     {'image': 'assets/gambar/slideshow1.png'},
     {'image': 'assets/gambar/slideshow2.png'},
@@ -97,6 +104,26 @@ class HomePageContent extends StatelessWidget {
     {'title': 'salmon panggang', 'image': 'assets/gambar/salmon_panggang.jpg'},
     {'title': 'salad sayur', 'image': 'assets/gambar/salad_sayur.jpg'},
   ];
+ 
+  int _currentIndex = 0;
+
+  @override
+  void initState() {
+    super.initState();
+    Timer.periodic(const Duration(seconds: 3), (timer) {
+      if (_pageController.hasClients) {
+        setState(() {
+          _currentIndex = (_currentIndex + 1) % slideshow.length;
+        });
+        _pageController.animateToPage(
+          _currentIndex,
+          duration: const Duration(milliseconds: 300),
+          curve: Curves.easeInOut,
+        );
+      }
+    });
+  }
+
 
   @override
   Widget build(BuildContext context) {
@@ -109,7 +136,7 @@ class HomePageContent extends StatelessWidget {
           pinned: true,
           flexibleSpace: FlexibleSpaceBar(
             background: Container(
-              color: Colors.orange,
+              color: const Color(0xFF105a3b),
               child: Padding(
                 padding: const EdgeInsets.symmetric(horizontal: 16.0),
                 child: Row(
@@ -130,34 +157,55 @@ class HomePageContent extends StatelessWidget {
           ),
         ),
         SliverToBoxAdapter(
-          child: Container(
-            height: 250,
-            child: PageView.builder(
-              itemCount: slideshow.length,
-              itemBuilder: (context, index) {
-                return Image.asset(
-                  slideshow[index]['image']!,
-                  fit: BoxFit.cover,
-                );
-              },
+  child: SizedBox(height: 20),
+),
+       SliverToBoxAdapter(
+  child: Container(
+    height: 250,
+    child: PageView.builder(
+      controller: PageController(viewportFraction: 0.85), // Mengatur jarak antar gambar
+      itemCount: slideshow.length,
+      itemBuilder: (context, index) {
+        return Padding(
+          padding: const EdgeInsets.symmetric(horizontal: 8.0), // Menambahkan jarak antar gambar
+          child: ClipRRect(
+            borderRadius: BorderRadius.circular(20), // Lengkungan pada sudut gambar
+            child: Image.asset(
+              slideshow[index]['image']!,
+              fit: BoxFit.cover, // Menyesuaikan ukuran gambar
             ),
           ),
-        ),
+        );
+      },
+    ),
+  ),
+),
+
+
         SliverToBoxAdapter(
-          child: Padding(
-            padding: const EdgeInsets.all(16.0),
-            child: Align(
-              alignment: Alignment.centerLeft,
-              child: Text(
-                'Masak Apa Hari Ini?',
-                style: TextStyle(
-                  fontSize: 18,
-                  fontWeight: FontWeight.bold,
-                ),
-              ),
-            ),
+  child: Padding(
+    padding: const EdgeInsets.all(10),
+    child: Align(
+      alignment: Alignment.centerLeft,
+      child: Container(
+        decoration: BoxDecoration(
+            color: Color(0xFF105a3b), // Warna border kotak
+          borderRadius: BorderRadius.circular(8.0), // Opsional: Sudut melengkung
+        ),
+        padding: EdgeInsets.all(8.0), // Ruang antara teks dan border
+        child: Text(
+          'Masak Apa Hari Ini?',
+          style: TextStyle(
+            fontSize: 18,
+            fontWeight: FontWeight.bold,
+            color: const Color.fromARGB(255, 254, 251, 243)
           ),
         ),
+      ),
+    ),
+  ),
+),
+
         SliverList(
           delegate: SliverChildBuilderDelegate(
             (context, index) {
